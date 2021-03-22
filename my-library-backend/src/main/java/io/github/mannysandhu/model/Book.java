@@ -1,4 +1,4 @@
-package io.github.mannysandhu.models;
+package io.github.mannysandhu.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
