@@ -64,7 +64,8 @@ public class BookController {
 		Book book = bookRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Book with id " + id + " not found."));
 		
-		book.setVolumeStatus(bookDetails.getVolumeStatus());
+		book.setVolumeStartedStatus(bookDetails.getVolumeStartedStatus());
+		book.setVolumeCompletedStatus(bookDetails.getVolumeCompletedStatus());
 		book.setPagesRead(bookDetails.getPagesRead());
 		
 		Book updatedBook = bookRepository.save(book);
