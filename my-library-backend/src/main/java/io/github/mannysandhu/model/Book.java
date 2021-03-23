@@ -12,35 +12,103 @@ import javax.persistence.Table;
 @Table(name = "books")
 public class Book {
 	
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@Column(name = "title")
+	@Column(name = "volume_genre")
+	private String genre;
+	
+	@Column(name = "volume_title")
 	private String title;
 	
-	@Column(name = "author")
+	@Column(name = "volume_author")
 	private String author;
+	
+	@Column(name = "page_count")
+	private long pageCount;
+	
+	@Column(name = "volume_status")
+	private String volumeStatus = "Not Started";
+	
+	@Column(name = "pages_read")
+	private long pagesRead = 0;
+	
+	@Column(name = "volume_ISBN")
+	private String isbn;
 	
 	public Book() {
 		
 	}
 	
-	public Book(String title, String author) {
+	public Book(String genre, String title, String author, long pageCount, String isbn) {
+		super();
+		this.genre = genre;
 		this.title = title;
 		this.author = author;
+		this.pageCount = pageCount;
+		this.isbn = isbn;
 	}
-	
+
+	public String getGenre() {
+		return genre;
+	}
+
+	public void setGenre(String genre) {
+		this.genre = genre;
+	}
+
 	public String getTitle() {
 		return title;
 	}
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
 	public String getAuthor() {
 		return author;
 	}
+
 	public void setAuthor(String author) {
 		this.author = author;
 	}
+
+	public long getPageCount() {
+		return pageCount;
+	}
+
+	public void setPageCount(long pageCount) {
+		this.pageCount = pageCount;
+	}
+
+	public String getVolumeStatus() {
+		return volumeStatus;
+	}
+
+	public void setVolumeStatus(String volumeStatus) {
+		this.volumeStatus = volumeStatus;
+	}
+
+	public long getPagesRead() {
+		return pagesRead;
+	}
+
+	public void setPagesRead(long pagesRead) {
+		this.pagesRead = pagesRead;
+	}
+
+	public String getIsbn() {
+		return isbn;
+	}
+
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
+	}
+
+	public long getId() {
+		return id;
+	}
+	
 }
