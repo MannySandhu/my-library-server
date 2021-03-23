@@ -1,9 +1,12 @@
 package io.github.mannysandhu.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,6 +43,17 @@ public class BookController {
 		Book book = bookRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Book not found with id: " + id));
 		return ResponseEntity.ok(book);
+	}
+	
+	// delete a book
+	@DeleteMapping("/books/{id}")
+	public ResponseEntity<Map<String, Boolean>> deleteBookById(@PathVariable long id){
+		Book book = bookRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Book not found with id: " + id));
+		bookRepository.delete(book);
+		Map<String, Boolean> response = new HashMap<String, Boolean>();
+		response.put("Deleted", Boolean.TRUE);
+		return ResponseEntity.ok(response);
 	}
 
 }
