@@ -26,19 +26,22 @@ public class BookController {
 	@Autowired
 	private BookRepository bookRepository;
 	
-	// get all books
+	/*
+	 * REST CRUD ENDPOINTS
+	 */
+	// Get all books
 	@GetMapping("/books")
 	public List<Book> getAllBooks() {
 		return bookRepository.findAll();
 	}
 	
-	// create book 
+	// Create book resource
 	@PostMapping("/books")
 	public Book createBook(@RequestBody Book book) {
 		return bookRepository.save(book);
 	}
 
-	// get book by id
+	// Get book resource by id
 	@GetMapping("/books/{id}")
 	public ResponseEntity<Book> getBookById(@PathVariable long id) {
 		Book book = bookRepository.findById(id)
@@ -46,7 +49,7 @@ public class BookController {
 		return ResponseEntity.ok(book);
 	}
 	
-	// delete a book
+	// Delete a book resource
 	@DeleteMapping("/books/{id}")
 	public ResponseEntity<Map<String, Boolean>> deleteBookById(@PathVariable long id){
 		Book book = bookRepository.findById(id)
@@ -57,13 +60,14 @@ public class BookController {
 		return ResponseEntity.ok(response);
 	}
 	
-	// Update a book
+	// Update a book resource
 	@PutMapping("/books/{id}")
 	public ResponseEntity<Book> updateBookById(@PathVariable long id, @RequestBody Book bookDetails) {
 		
 		Book book = bookRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Book with id " + id + " not found."));
 		
+		// Updating read status only
 		book.setVolumeStartedStatus(bookDetails.getVolumeStartedStatus());
 		book.setVolumeCompletedStatus(bookDetails.getVolumeCompletedStatus());
 		book.setPagesRead(bookDetails.getPagesRead());
