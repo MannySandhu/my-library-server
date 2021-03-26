@@ -1,5 +1,6 @@
 package io.github.mannysandhu.controller;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.github.mannysandhu.exception.ResourceNotFoundException;
+import io.github.mannysandhu.httpClient.BookHttpClient;
 import io.github.mannysandhu.model.Book;
 import io.github.mannysandhu.repository.BookRepository;
 
@@ -26,8 +28,10 @@ public class BookController {
 	@Autowired
 	private BookRepository bookRepository;
 	
+	private BookHttpClient bookHttpClient = new BookHttpClient();
+
 	/*
-	 * REST CRUD ENDPOINTS
+	 * Database CRUD REST APIs
 	 */
 	// Get all books
 	@GetMapping("/books")
@@ -75,6 +79,36 @@ public class BookController {
 		Book updatedBook = bookRepository.save(book);
 		return ResponseEntity.ok(updatedBook);
 	}
-
+	
+	/*
+	 * Google Books REST APIs
+	 */
+	// Get book resource by ISBN value
+	@GetMapping("/books/search/isbn/{isbn}")
+	public String getBookByIsbn(@PathVariable String isbn) {
+		String book = "";
+		try {
+			book = bookHttpClient.getVolumeByIsbn(isbn);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return book;
+	}
+	
+	// Get book resource by terms
+	@GetMapping("/books/search/{terms}")
+	public String getBookByTerms(@PathVariable String terms) {
+		String book = "";
+		try {
+			book = bookHttpClient.getVolumeByTerms(terms);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return book;
+	}
 }
  
