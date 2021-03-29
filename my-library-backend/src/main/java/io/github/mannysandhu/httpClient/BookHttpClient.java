@@ -6,9 +6,12 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
+import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.github.mannysandhu.dto.volumeDto.Item;
+import io.github.mannysandhu.dto.volumeDto.Root;
 import io.github.mannysandhu.dto.volumeDto.VolumeInfo;
 
 /*
@@ -32,8 +35,9 @@ public class BookHttpClient {
 				.uri(URI.create(url))
 				.build();
 		HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
-		VolumeInfo volume = objectMapper.readValue(response.body(), VolumeInfo.class);
-		return volume.getTitle();
+		Root jsonObject = objectMapper.readValue(response.body(), Root.class);
+		Item volume = jsonObject.getItems().get(0);
+		return volume.getVolumeInfo().getTitle();
 	}
 	
 	// Fetch a volume by terms
