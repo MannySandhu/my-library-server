@@ -1,11 +1,18 @@
 package io.github.mannysandhu.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.CollectionType;
+
+import io.github.mannysandhu.dto.volumeDto.IndustryIdentifier;
 
 /*
  * Entity represents a book resource
@@ -13,54 +20,115 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "books")
 public class Book {
-	
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	
+
 	@Column(name = "volume_genre")
-	private String genre;
-	
+	@ElementCollection(targetClass=String.class)
+	private List<String> genre;
+
 	@Column(name = "volume_title")
 	private String title;
-	
-	@Column(name = "volume_author")
-	private String author;
-	
+
+	@Column(name = "volume_subtitle")
+	private String subtitle;
+
+	@Column(name = "volume_authors")
+	@ElementCollection(targetClass=String.class)
+	private List<String> authors;
+
 	@Column(name = "page_count")
 	private long pageCount;
-	
+
 	@Column(name = "volume_started_status")
 	private boolean volumeStartedStatus = false;
-	
+
 	@Column(name = "volume_completed_status")
 	private boolean volumeCompletedStatus = false;
-	
+
 	@Column(name = "pages_read")
 	private long pagesRead = 0;
-	
-	@Column(name = "volume_ISBN")
-	private String isbn;
-	
+
+	@Column(name = "ratings_count")
+	private int ratingsCount = 0;
+
+	@Column(name = "average_rating")
+	private double averageRating;
+
+	@Column(name = "maturity_rating")
+	private String maturityRating;
+
+	@Column(name = "published_date")
+	private String publishedDate;
+
+	@Column(name = "print_type")
+	private String printType;
+
+	@Column(name = "publisher")
+	private String publisher;
+
+	@Column(name = "description")
+	private String description;
+
+	@Column(name = "language")
+	private String language;
+
+	@Column(name = "preview_link")
+	private String preview_link;
+
+	@Column(name = "info_link")
+	private String infoLink;
+
+	@Column(name = "image_link")
+	private String imageLink;
+
+	@Column(name = "volume_identifiers")
+	@ElementCollection(targetClass=String.class)
+	private List<String> indentifiers;
+
 	public Book() {
-		
+
 	}
-	
-	public Book(String genre, String title, String author, long pageCount, String isbn) {
+
+	public Book(List<String> genre, String title, String subtitle, List<String> authors, long pageCount,
+			int ratingsCount, double averageRating, String maturityRating, String publishedDate, String printType,
+			String publisher, String description, String language, String preview_link, String infoLink,
+			String imageLink, List<String> indentifiers) {
 		super();
 		this.genre = genre;
 		this.title = title;
-		this.author = author;
+		this.subtitle = subtitle;
+		this.authors = authors;
 		this.pageCount = pageCount;
-		this.isbn = isbn;
+		this.ratingsCount = ratingsCount;
+		this.averageRating = averageRating;
+		this.maturityRating = maturityRating;
+		this.publishedDate = publishedDate;
+		this.printType = printType;
+		this.publisher = publisher;
+		this.description = description;
+		this.language = language;
+		this.preview_link = preview_link;
+		this.infoLink = infoLink;
+		this.imageLink = imageLink;
+		this.indentifiers = indentifiers;
 	}
 
-	public String getGenre() {
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public List<String> getGenre() {
 		return genre;
 	}
 
-	public void setGenre(String genre) {
+	public void setGenre(List<String> genre) {
 		this.genre = genre;
 	}
 
@@ -72,12 +140,20 @@ public class Book {
 		this.title = title;
 	}
 
-	public String getAuthor() {
-		return author;
+	public String getSubtitle() {
+		return subtitle;
 	}
 
-	public void setAuthor(String author) {
-		this.author = author;
+	public void setSubtitle(String subtitle) {
+		this.subtitle = subtitle;
+	}
+
+	public List<String> getAuthors() {
+		return authors;
+	}
+
+	public void setAuthors(List<String> authors) {
+		this.authors = authors;
 	}
 
 	public long getPageCount() {
@@ -88,15 +164,15 @@ public class Book {
 		this.pageCount = pageCount;
 	}
 
-	public boolean getVolumeStartedStatus() {
+	public boolean isVolumeStartedStatus() {
 		return volumeStartedStatus;
 	}
 
 	public void setVolumeStartedStatus(boolean volumeStartedStatus) {
 		this.volumeStartedStatus = volumeStartedStatus;
 	}
-	
-	public boolean getVolumeCompletedStatus() {
+
+	public boolean isVolumeCompletedStatus() {
 		return volumeCompletedStatus;
 	}
 
@@ -112,16 +188,99 @@ public class Book {
 		this.pagesRead = pagesRead;
 	}
 
-	public String getIsbn() {
-		return isbn;
+	public int getRatingsCount() {
+		return ratingsCount;
 	}
 
-	public void setIsbn(String isbn) {
-		this.isbn = isbn;
+	public void setRatingsCount(int ratingsCount) {
+		this.ratingsCount = ratingsCount;
 	}
 
-	public long getId() {
-		return id;
+	public double getAverageRating() {
+		return averageRating;
 	}
-	
+
+	public void setAverageRating(double averageRating) {
+		this.averageRating = averageRating;
+	}
+
+	public String getMaturityRating() {
+		return maturityRating;
+	}
+
+	public void setMaturityRating(String maturityRating) {
+		this.maturityRating = maturityRating;
+	}
+
+	public String getPublishedDate() {
+		return publishedDate;
+	}
+
+	public void setPublishedDate(String publishedDate) {
+		this.publishedDate = publishedDate;
+	}
+
+	public String getPrintType() {
+		return printType;
+	}
+
+	public void setPrintType(String printType) {
+		this.printType = printType;
+	}
+
+	public String getPublisher() {
+		return publisher;
+	}
+
+	public void setPublisher(String publisher) {
+		this.publisher = publisher;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+
+	public String getPreview_link() {
+		return preview_link;
+	}
+
+	public void setPreview_link(String preview_link) {
+		this.preview_link = preview_link;
+	}
+
+	public String getInfoLink() {
+		return infoLink;
+	}
+
+	public void setInfoLink(String infoLink) {
+		this.infoLink = infoLink;
+	}
+
+	public String getImageLink() {
+		return imageLink;
+	}
+
+	public void setImageLink(String imageLink) {
+		this.imageLink = imageLink;
+	}
+
+	public List<String> getIndentifiers() {
+		return indentifiers;
+	}
+
+	public void setIndentifiers(List<String> indentifiers) {
+		this.indentifiers = indentifiers;
+	}
 }

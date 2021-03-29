@@ -28,6 +28,8 @@ public class BookController {
 	
 	@Autowired
 	private BookRepository bookRepository;
+	
+	private BookHttpClient bookHttpClient = new BookHttpClient();
 
 	/*
 	 * Database CRUD REST APIs
@@ -71,9 +73,9 @@ public class BookController {
 				.orElseThrow(() -> new ResourceNotFoundException("Book with id " + id + " not found."));
 		
 		// Updating read status only
-		book.setVolumeStartedStatus(bookDetails.getVolumeStartedStatus());
-		book.setVolumeCompletedStatus(bookDetails.getVolumeCompletedStatus());
-		book.setPagesRead(bookDetails.getPagesRead());
+//		book.setVolumeStartedStatus(bookDetails.getVolumeStartedStatus());
+//		book.setVolumeCompletedStatus(bookDetails.getVolumeCompletedStatus());
+//		book.setPagesRead(bookDetails.getPagesRead());
 		
 		Book updatedBook = bookRepository.save(book);
 		return ResponseEntity.ok(updatedBook);
@@ -82,12 +84,12 @@ public class BookController {
 	/*
 	 * Google Books REST APIs
 	 */
-	// Get book resource by ISBN value
+	// Get book resource by ISBN identifier
 	@GetMapping("/books/search/isbn/{isbn}")
 	public Book getBookByIsbn(@PathVariable String isbn) {
 		Book book = null;
 		try {
-			book = BookRepository.bookHttpClient.getVolumeByIsbn(isbn);
+			book = bookHttpClient.getVolumeByIsbn(isbn);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -97,17 +99,17 @@ public class BookController {
 	}
 	
 	// Get book resource by terms
-	@GetMapping("/books/search/{terms}")
-	public String getBookByTerms(@PathVariable String terms) {
-		String book = "";
-		try {
-			book = BookRepository.bookHttpClient.getVolumeByTerms(terms);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return book;
-	}
+//	@GetMapping("/books/search/{terms}")
+//	public String getBookByTerms(@PathVariable String terms) {
+//		String book = "";
+//		try {
+//			book = bookHttpClient.getVolumeByTerms(terms);
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		return book;
+//	}
 }
  

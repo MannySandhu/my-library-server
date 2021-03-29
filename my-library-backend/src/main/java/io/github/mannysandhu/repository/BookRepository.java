@@ -9,5 +9,4 @@ import io.github.mannysandhu.model.Book;
 @Repository
 public interface BookRepository extends JpaRepository<Book, Long> {
 	
-	public BookHttpClient bookHttpClient = new BookHttpClient();
 }

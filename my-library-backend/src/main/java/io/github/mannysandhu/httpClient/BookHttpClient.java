@@ -6,11 +6,14 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.github.mannysandhu.dto.volumeDto.Root;
 import io.github.mannysandhu.dto.volumeDto.VolumeInfo;
+import io.github.mannysandhu.dto.volumeDto.IndustryIdentifier;
 import io.github.mannysandhu.model.Book;
 
 /*
@@ -36,12 +39,28 @@ public class BookHttpClient {
 		HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
 		Root jsonObject = objectMapper.readValue(response.body(), Root.class);
 		VolumeInfo volume = jsonObject.getItems().get(0).getVolumeInfo();
+		List<String> volumeIdentifiers = new ArrayList<String>();
+		for(IndustryIdentifier identifier : volume.getIndustryIdentifiers()) {
+			volumeIdentifiers.add(identifier.getIdentifier());
+		}
 		return new Book(
-				volume.getCategories().get(0),
+				volume.getCategories(),
 				volume.getTitle(),
-				volume.getAuthors().get(0),
+				volume.getSubtitle(),
+				volume.getAuthors(),
 				volume.getPageCount(),
-				volume.getIndustryIdentifiers().get(0).getIdentifier());
+				volume.getRatingsCount(),
+				volume.getAverageRating(),
+				volume.getMaturityRating(),
+				volume.getPublishedDate(),
+				volume.getPrintType(),
+				volume.getPublisher(),
+				volume.getDescription(),
+				volume.getLanguage(),
+				volume.getPreviewLink(),
+				volume.getInfoLink(),
+				volume.getImageLinks().toString(),
+				volumeIdentifiers);
 	}
 	
 	// Fetch a volume by terms
