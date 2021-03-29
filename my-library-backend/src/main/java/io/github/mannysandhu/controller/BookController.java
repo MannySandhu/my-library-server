@@ -16,9 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.github.mannysandhu.dto.volumeDto.Item;
 import io.github.mannysandhu.exception.ResourceNotFoundException;
-import io.github.mannysandhu.httpClient.BookHttpClient;
 import io.github.mannysandhu.model.Book;
 import io.github.mannysandhu.repository.BookRepository;
 
@@ -28,8 +26,6 @@ public class BookController {
 	
 	@Autowired
 	private BookRepository bookRepository;
-	
-	private BookHttpClient bookHttpClient = new BookHttpClient();
 
 	/*
 	 * Database CRUD REST APIs
@@ -89,7 +85,7 @@ public class BookController {
 	public Book getBookByIsbn(@PathVariable String isbn) {
 		Book book = null;
 		try {
-			book = bookHttpClient.getVolumeByIsbn(isbn);
+			book = BookRepository.getVolumeByIsbn(isbn);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
