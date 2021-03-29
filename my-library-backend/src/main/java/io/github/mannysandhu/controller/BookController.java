@@ -28,8 +28,6 @@ public class BookController {
 	
 	@Autowired
 	private BookRepository bookRepository;
-	
-	private BookHttpClient bookHttpClient = new BookHttpClient();
 
 	/*
 	 * Database CRUD REST APIs
@@ -86,10 +84,10 @@ public class BookController {
 	 */
 	// Get book resource by ISBN value
 	@GetMapping("/books/search/isbn/{isbn}")
-	public String getBookByIsbn(@PathVariable String isbn) {
-		String book = "";
+	public Book getBookByIsbn(@PathVariable String isbn) {
+		Book book = null;
 		try {
-			book = bookHttpClient.getVolumeByIsbn(isbn);
+			book = BookRepository.bookHttpClient.getVolumeByIsbn(isbn);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -103,7 +101,7 @@ public class BookController {
 	public String getBookByTerms(@PathVariable String terms) {
 		String book = "";
 		try {
-			book = bookHttpClient.getVolumeByTerms(terms);
+			book = BookRepository.bookHttpClient.getVolumeByTerms(terms);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
