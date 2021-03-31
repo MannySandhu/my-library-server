@@ -38,10 +38,8 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 		Root jsonObject = objectMapper.readValue(response.body(), Root.class);
 		VolumeInfo volume = jsonObject.getItems().get(0).getVolumeInfo();
 		return new Book(
-				volume.getCategories().get(0).toString(),
 				volume.getTitle(),
 				volume.getSubtitle(),
-				volume.getAuthors().get(0).toString(),
 				volume.getPageCount(),
 				volume.getRatingsCount(),
 				volume.getAverageRating(),
@@ -53,8 +51,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 				volume.getLanguage(),
 				volume.getPreviewLink(),
 				volume.getInfoLink(),
-				volume.getImageLinks().toString(),
-				volume.getIndustryIdentifiers().get(0).toString());
+				volume.getImageLinks().toString());
 	}
 	
 	// Fetch a volume by terms

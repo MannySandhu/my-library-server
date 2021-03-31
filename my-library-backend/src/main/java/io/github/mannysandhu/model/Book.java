@@ -1,13 +1,11 @@
 package io.github.mannysandhu.model;
 
-import java.util.List;
-
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 /*
@@ -21,8 +19,8 @@ public class Book {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	@Column(name = "volume_genre")
-	private String genre;
+//	@Column(name = "volume_genre")
+//	private List<String> genre;
 
 	@Column(name = "volume_title")
 	private String title;
@@ -30,8 +28,8 @@ public class Book {
 	@Column(name = "volume_subtitle")
 	private String subtitle;
 
-	@Column(name = "volume_authors")
-	private String authors;
+//	@Column(name = "volume_authors")
+//	private List<String> authors;
 
 	@Column(name = "page_count")
 	private long pageCount;
@@ -63,6 +61,7 @@ public class Book {
 	@Column(name = "publisher")
 	private String publisher;
 
+	@Lob
 	@Column(name = "description")
 	private String description;
 
@@ -78,22 +77,19 @@ public class Book {
 	@Column(name = "image_link")
 	private String imageLink;
 
-	@Column(name = "volume_identifiers")
-	private String indentifiers;
+//	@Column(name = "volume_identifiers")
+//	private List<String> indentifiers;
 
 	public Book() {
 
 	}
 
-	public Book(String genre, String title, String subtitle, String authors, long pageCount,
+	public Book(String title, String subtitle, long pageCount,
 			int ratingsCount, double averageRating, String maturityRating, String publishedDate, String printType,
 			String publisher, String description, String language, String preview_link, String infoLink,
-			String imageLink, String indentifiers) {
-		super();
-		this.genre = genre;
+			String imageLink) {
 		this.title = title;
 		this.subtitle = subtitle;
-		this.authors = authors;
 		this.pageCount = pageCount;
 		this.ratingsCount = ratingsCount;
 		this.averageRating = averageRating;
@@ -106,7 +102,6 @@ public class Book {
 		this.preview_link = preview_link;
 		this.infoLink = infoLink;
 		this.imageLink = imageLink;
-		this.indentifiers = indentifiers;
 	}
 
 	public long getId() {
@@ -117,13 +112,13 @@ public class Book {
 		this.id = id;
 	}
 
-	public String getGenre() {
-		return genre;
-	}
-
-	public void setGenre(String genre) {
-		this.genre = genre;
-	}
+//	public List<String> getGenre() {
+//		return genre;
+//	}
+//
+//	public void setGenre(List<String> genre) {
+//		this.genre = genre;
+//	}
 
 	public String getTitle() {
 		return title;
@@ -141,13 +136,13 @@ public class Book {
 		this.subtitle = subtitle;
 	}
 
-	public String getAuthors() {
-		return authors;
-	}
-
-	public void setAuthors(String authors) {
-		this.authors = authors;
-	}
+//	public List<String> getAuthors() {
+//		return authors;
+//	}
+//
+//	public void setAuthors(List<String> authors) {
+//		this.authors = authors;
+//	}
 
 	public long getPageCount() {
 		return pageCount;
@@ -269,11 +264,11 @@ public class Book {
 		this.imageLink = imageLink;
 	}
 
-	public String getIndentifiers() {
-		return indentifiers;
-	}
-
-	public void setIndentifiers(String indentifiers) {
-		this.indentifiers = indentifiers;
-	}
+//	public List<String> getIndentifiers() {
+//		return indentifiers;
+//	}
+//
+//	public void setIndentifiers(List<String> indentifiers) {
+//		this.indentifiers = indentifiers;
+//	}
 }

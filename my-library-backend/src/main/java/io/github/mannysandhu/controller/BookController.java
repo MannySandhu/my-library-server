@@ -41,7 +41,6 @@ public class BookController {
 	// Create book resource
 	@PostMapping("/books")
 	public Book createBook(@RequestBody Book book) {
-		System.out.println(book.getTitle());
 		return bookRepository.save(book);
 	}
 
