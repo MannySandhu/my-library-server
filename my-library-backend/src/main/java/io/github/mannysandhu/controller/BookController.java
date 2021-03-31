@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +23,7 @@ import io.github.mannysandhu.repository.BookRepository;
 
 @RestController
 @RequestMapping("/api/v1/")
+@CrossOrigin(origins = "http://localhost:3000")
 public class BookController {
 	
 	@Autowired
@@ -39,6 +41,7 @@ public class BookController {
 	// Create book resource
 	@PostMapping("/books")
 	public Book createBook(@RequestBody Book book) {
+		System.out.println(book.getTitle());
 		return bookRepository.save(book);
 	}
 
@@ -81,7 +84,7 @@ public class BookController {
 	 * Google Books REST APIs
 	 */
 	// Get book resource by ISBN identifier
-	@GetMapping("/books/search/isbn/{isbn}")
+	@GetMapping("/books/isbn/{isbn}")
 	public Book getBookByIsbn(@PathVariable String isbn) {
 		Book book = null;
 		try {

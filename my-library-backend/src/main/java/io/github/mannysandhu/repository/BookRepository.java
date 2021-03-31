@@ -6,15 +6,12 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import io.github.mannysandhu.dto.volumeDto.IndustryIdentifier;
 import io.github.mannysandhu.dto.volumeDto.Root;
 import io.github.mannysandhu.dto.volumeDto.VolumeInfo;
 import io.github.mannysandhu.model.Book;
@@ -40,15 +37,11 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 		HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
 		Root jsonObject = objectMapper.readValue(response.body(), Root.class);
 		VolumeInfo volume = jsonObject.getItems().get(0).getVolumeInfo();
-		List<String> volumeIdentifiers = new ArrayList<String>();
-		for(IndustryIdentifier identifier : volume.getIndustryIdentifiers()) {
-			volumeIdentifiers.add(identifier.getIdentifier());
-		}
 		return new Book(
-				volume.getCategories(),
+				volume.getCategories().get(0).toString(),
 				volume.getTitle(),
 				volume.getSubtitle(),
-				volume.getAuthors(),
+				volume.getAuthors().get(0).toString(),
 				volume.getPageCount(),
 				volume.getRatingsCount(),
 				volume.getAverageRating(),
@@ -61,7 +54,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 				volume.getPreviewLink(),
 				volume.getInfoLink(),
 				volume.getImageLinks().toString(),
-				volumeIdentifiers);
+				volume.getIndustryIdentifiers().get(0).toString());
 	}
 	
 	// Fetch a volume by terms

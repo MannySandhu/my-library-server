@@ -10,10 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.CollectionType;
-
-import io.github.mannysandhu.dto.volumeDto.IndustryIdentifier;
-
 /*
  * Entity represents a book resource
  */
@@ -26,8 +22,7 @@ public class Book {
 	private long id;
 
 	@Column(name = "volume_genre")
-	@ElementCollection(targetClass=String.class)
-	private List<String> genre;
+	private String genre;
 
 	@Column(name = "volume_title")
 	private String title;
@@ -36,8 +31,7 @@ public class Book {
 	private String subtitle;
 
 	@Column(name = "volume_authors")
-	@ElementCollection(targetClass=String.class)
-	private List<String> authors;
+	private String authors;
 
 	@Column(name = "page_count")
 	private long pageCount;
@@ -85,17 +79,16 @@ public class Book {
 	private String imageLink;
 
 	@Column(name = "volume_identifiers")
-	@ElementCollection(targetClass=String.class)
-	private List<String> indentifiers;
+	private String indentifiers;
 
 	public Book() {
 
 	}
 
-	public Book(List<String> genre, String title, String subtitle, List<String> authors, long pageCount,
+	public Book(String genre, String title, String subtitle, String authors, long pageCount,
 			int ratingsCount, double averageRating, String maturityRating, String publishedDate, String printType,
 			String publisher, String description, String language, String preview_link, String infoLink,
-			String imageLink, List<String> indentifiers) {
+			String imageLink, String indentifiers) {
 		super();
 		this.genre = genre;
 		this.title = title;
@@ -124,11 +117,11 @@ public class Book {
 		this.id = id;
 	}
 
-	public List<String> getGenre() {
+	public String getGenre() {
 		return genre;
 	}
 
-	public void setGenre(List<String> genre) {
+	public void setGenre(String genre) {
 		this.genre = genre;
 	}
 
@@ -148,11 +141,11 @@ public class Book {
 		this.subtitle = subtitle;
 	}
 
-	public List<String> getAuthors() {
+	public String getAuthors() {
 		return authors;
 	}
 
-	public void setAuthors(List<String> authors) {
+	public void setAuthors(String authors) {
 		this.authors = authors;
 	}
 
@@ -276,11 +269,11 @@ public class Book {
 		this.imageLink = imageLink;
 	}
 
-	public List<String> getIndentifiers() {
+	public String getIndentifiers() {
 		return indentifiers;
 	}
 
-	public void setIndentifiers(List<String> indentifiers) {
+	public void setIndentifiers(String indentifiers) {
 		this.indentifiers = indentifiers;
 	}
 }
