@@ -26,7 +26,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 	 * Google Books API end points
 	 */
 	// Fetch a volume by ISBN value
-	public static Book getVolumeByIsbn(String isbn) throws InterruptedException, IOException {
+	public static Book getVolumeByIsbn(long isbn) throws InterruptedException, IOException {
 		final String url = "https://www.googleapis.com/books/v1/volumes?q=isbn:" + isbn;
 		HttpClient client = HttpClient.newHttpClient();
 		HttpRequest request = HttpRequest.newBuilder()

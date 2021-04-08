@@ -64,16 +64,16 @@ public class BookController {
 	}
 	
 	// Update a book resource
-	@PutMapping("/books/{id}")
-	public ResponseEntity<Book> updateBookById(@PathVariable long id, @RequestBody Book bookDetails) {
+	@PutMapping("/books/{id}/{pagesRead}/{bookStatus}")
+	public ResponseEntity<Book> updateBookById(@PathVariable long id, 
+			@PathVariable long pagesRead, @PathVariable String bookStatus) {
 		
 		Book book = bookRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Book with id " + id + " not found."));
 		
 		// Updating read status only
-//		book.setVolumeStartedStatus(bookDetails.getVolumeStartedStatus());
-//		book.setVolumeCompletedStatus(bookDetails.getVolumeCompletedStatus());
-//		book.setPagesRead(bookDetails.getPagesRead());
+		book.setPagesRead(pagesRead);
+		book.setBookStatus(bookStatus);
 		
 		Book updatedBook = bookRepository.save(book);
 		return ResponseEntity.ok(updatedBook);
@@ -84,7 +84,7 @@ public class BookController {
 	 */
 	// Get book resource by ISBN identifier
 	@GetMapping("/books/isbn/{isbn}")
-	public Book getBookByIsbn(@PathVariable String isbn) {
+	public Book getBookByIsbn(@PathVariable long isbn) {
 		Book book = null;
 		try {
 			book = BookRepository.getVolumeByIsbn(isbn);

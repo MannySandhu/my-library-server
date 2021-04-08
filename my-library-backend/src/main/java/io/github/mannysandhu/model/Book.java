@@ -34,11 +34,8 @@ public class Book {
 	@Column(name = "page_count")
 	private long pageCount;
 
-	@Column(name = "volume_started_status")
-	private boolean volumeStartedStatus = false;
-
 	@Column(name = "volume_completed_status")
-	private boolean volumeCompletedStatus = false;
+	private String bookStatus = "Not Started";
 
 	@Column(name = "pages_read")
 	private long pagesRead = 0;
@@ -152,20 +149,12 @@ public class Book {
 		this.pageCount = pageCount;
 	}
 
-	public boolean isVolumeStartedStatus() {
-		return volumeStartedStatus;
+	public String getBookStatus() {
+		return bookStatus;
 	}
 
-	public void setVolumeStartedStatus(boolean volumeStartedStatus) {
-		this.volumeStartedStatus = volumeStartedStatus;
-	}
-
-	public boolean isVolumeCompletedStatus() {
-		return volumeCompletedStatus;
-	}
-
-	public void setVolumeCompletedStatus(boolean volumeCompletedStatus) {
-		this.volumeCompletedStatus = volumeCompletedStatus;
+	public void setBookStatus(String bookStatus) {
+		this.bookStatus = bookStatus;
 	}
 
 	public long getPagesRead() {
