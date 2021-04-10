@@ -1,0 +1,16 @@
+package io.github.mannysandhu.dto.volumeTermsDto; 
+import com.fasterxml.jackson.annotation.JsonProperty; 
+public class PanelizationSummary{
+    @JsonProperty("containsEpubBubbles") 
+    public boolean getContainsEpubBubbles() { 
+		 return this.containsEpubBubbles; } 
+    public void setContainsEpubBubbles(boolean containsEpubBubbles) { 
+		 this.containsEpubBubbles = containsEpubBubbles; } 
+    boolean containsEpubBubbles;
+    @JsonProperty("containsImageBubbles") 
+    public boolean getContainsImageBubbles() { 
+		 return this.containsImageBubbles; } 
+    public void setContainsImageBubbles(boolean containsImageBubbles) { 
+		 this.containsImageBubbles = containsImageBubbles; } 
+    boolean containsImageBubbles;
+}

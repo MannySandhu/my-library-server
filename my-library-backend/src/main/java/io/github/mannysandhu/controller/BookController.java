@@ -1,6 +1,7 @@
 package io.github.mannysandhu.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.github.mannysandhu.exception.ResourceNotFoundException;
 import io.github.mannysandhu.model.Book;
+import io.github.mannysandhu.repository.BookByIsbnHttpClient;
+import io.github.mannysandhu.repository.BookByTermsHttpClient;
 import io.github.mannysandhu.repository.BookRepository;
 
 @RestController
@@ -87,7 +90,7 @@ public class BookController {
 	public Book getBookByIsbn(@PathVariable long isbn) {
 		Book book = null;
 		try {
-			book = BookRepository.getVolumeByIsbn(isbn);
+			book = BookByIsbnHttpClient.getVolumeByIsbn(isbn);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -96,18 +99,18 @@ public class BookController {
 		return book;
 	}
 	
-	// Get book resource by terms
-//	@GetMapping("/books/search/{terms}")
-//	public String getBookByTerms(@PathVariable String terms) {
-//		String book = "";
-//		try {
-//			book = bookHttpClient.getVolumeByTerms(terms);
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//		return book;
-//	}
+	// Get many book resources by terms
+	@GetMapping("/books/terms/{terms}")
+	public List<Book> getBookByTerms(@PathVariable String terms) {
+		List<Book> books = new ArrayList<Book>();
+		try {
+			books = BookByTermsHttpClient.getVolumeByTerms(terms);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return books;
+	}
 }
  
