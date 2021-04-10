@@ -25,6 +25,7 @@ public class BookByTermsHttpClient {
 	 */
 	// Fetch a volume by terms 
 	public static List<Book> getVolumeByTerms(String terms) throws InterruptedException, IOException {
+		terms = terms.replace(' ', '+');
 		final String url = "https://www.googleapis.com/books/v1/volumes?q=" + terms;
 		HttpClient client = HttpClient.newHttpClient();
 		HttpRequest request = HttpRequest.newBuilder()
