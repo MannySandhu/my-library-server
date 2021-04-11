@@ -1,4 +1,4 @@
-package io.github.mannysandhu.dto.volumeDto; 
+package io.github.mannysandhu.dto.volumeIsbnDto; 
 import com.fasterxml.jackson.annotation.JsonProperty; 
 public class AccessInfo{
     @JsonProperty("country") 

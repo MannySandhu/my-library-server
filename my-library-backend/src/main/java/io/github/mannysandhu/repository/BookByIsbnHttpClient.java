@@ -9,8 +9,8 @@ import java.net.http.HttpResponse.BodyHandlers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import io.github.mannysandhu.dto.volumeDto.Root;
-import io.github.mannysandhu.dto.volumeDto.VolumeInfo;
+import io.github.mannysandhu.dto.volumeIsbnDto.Root;
+import io.github.mannysandhu.dto.volumeIsbnDto.VolumeInfo;
 import io.github.mannysandhu.model.Book;
 
 public class BookByIsbnHttpClient {

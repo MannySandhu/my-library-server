@@ -1,6 +1,6 @@
-package io.github.mannysandhu.dto.volumeDto; 
+package io.github.mannysandhu.dto.volumeIsbnDto; 
 import com.fasterxml.jackson.annotation.JsonProperty; 
-public class Pdf{
+public class Epub{
     @JsonProperty("isAvailable") 
     public boolean getIsAvailable() { 
 		 return this.isAvailable; } 
